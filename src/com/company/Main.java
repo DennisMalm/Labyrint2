@@ -34,11 +34,6 @@ public class Main {
                         "5. Check your status.          \n" +
                         "6. Quit.                         "
         );
-        int fem = -5;
-        int tio = 10;
-        int ny = tio + fem;
-        System.out.println(ny);
-
         int input = menuInput();
         switch (input) {
             case 1:
