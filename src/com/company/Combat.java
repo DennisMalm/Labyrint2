@@ -6,16 +6,18 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Combat {
 
 
+
     static int monsterLife = 100;
     static int playerLife = 100;
     static int swing;
     static int killCount;
+
     public static int fight() throws InterruptedException {
 
 
         System.out.println("Fight starts.");
-         // monsterLife = 100;
-         // playerLife = 100;
+        // monsterLife = 100;
+        // playerLife = 100;
         swing = 2;
         boolean fighting = true;
         boolean alive;
@@ -24,7 +26,7 @@ public class Combat {
 
             if (swing % 2 == 0) {
                 monsterLife = monsterLife - damageDone(swing);
-                System.out.println("Monstrets liv: " + monsterLife);
+                System.out.println("Monster life: " + monsterLife);
                 delay();
                 if (monsterLife <= 0) {
                     killCount++;
@@ -37,7 +39,7 @@ public class Combat {
 
             } else if (swing % 2 == 1) {
                 playerLife = playerLife - damageDone(swing);
-                System.out.println("Ditt liv: " + playerLife);
+                System.out.println("Your life total: " + playerLife);
                 delay();
                 if (checkIfDead()) {
                     fighting = false;
@@ -53,11 +55,11 @@ public class Combat {
         Random randomNumber = new Random();
         if (swing % 2 == 1) {
             int damage = ThreadLocalRandom.current().nextInt(1, 10);
-            System.out.println("Monstret slår för " + damage);
+            System.out.println("The monster hit for " + damage);
             return damage;
         } else {
             int damage = ThreadLocalRandom.current().nextInt(5, 25);
-            System.out.println("Du slår för " + damage);
+            System.out.println("You hit the monster for " + damage);
             return damage;
         }
     }
@@ -65,18 +67,39 @@ public class Combat {
     public static void delay() throws InterruptedException {
         Thread.sleep(10);
     }
-    static void checkStatus(){
+
+    static void checkStatus() {
         System.out.println("Your life total is: " + playerLife + " and you've killed " + killCount + " monsters.");
     }
-    static boolean checkIfDead(){
+
+    static boolean checkIfDead() {
         boolean dead = false;
-        if(playerLife <= 0) {
-            System.out.println("You have been slain by the angry rabbit... :(");
+        if (playerLife <= 0) {
+            System.out.println("You have been slain...");
             dead = true;
-        }
-        else{
+        } else {
             dead = false;
         }
         return dead;
+    }
+
+
+
+    static void monsterEncounter() {
+        System.out.println("\nYou encounter a monster!");
+        System.out.println("------------------------------------------------" +
+                "             /\\\n" +
+                "            ( ;`~v/~~~ ;._\n" +
+                "         ,/'\"/^) ' < o\\  '\".~'\\\\\\--,\n" +
+                "       ,/\",/W  u '`. ~  >,._..,   )'\n" +
+                "      ,/'  w  ,U^v  ;//^)/')/^\\;~)'\n" +
+                "   ,/\"'/   W` ^v  W |;         )/'\n" +
+                " ;''  |  v' v`\" W }  \\\\\n" +
+                "\"    .'\\    v  `v/^W,) '\\)\\.)\\/)\n" +
+                "         `\\   ,/,)'   ''')/^\"-;'\n" +
+                "              \\\n" +
+                "            \".\n" +
+                "           \\                       \n" +
+                "------------------------------------------------\n");
     }
 }

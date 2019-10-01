@@ -32,18 +32,22 @@ public class GameBoard {
         printGameBoard();
         int i = playerPositionCol;
         int j = playerPositionRow;
+        int row = 0;
+        int column = 0;
+
 
         if (menuInput == 1) {
-            moveNorth(i, j);
+            row--;
         } else if (menuInput == 2) {
-            moveWest(i, j);
+            column--;
         } else if (menuInput == 3) {
-            moveEast(i, j);
-        } else if(menuInput == 4){
-            moveSouth(i, j);
+            column++;
+        } else if (menuInput == 4) {
+            row++;
         }
+        movePlayer(i, j, row, column);
         checkFinishTile();
-        printGameBoard();
+        //printGameBoard();
     }
 
     int checkValidMove(int i, int j) {
@@ -53,7 +57,7 @@ public class GameBoard {
             System.out.println("You delve deeper into the labyrinth.");
             path = 1;
         } else if (labyrinth[i][j] == 2) {
-            System.out.println("You encounter a monster!");
+            Combat.monsterEncounter();
             path = 2;
         } else if (labyrinth[i][j] == 3) {
             System.out.println("An obstacle blocks the passage.");
@@ -64,82 +68,24 @@ public class GameBoard {
         return path;
     }
 
-    void moveNorth(int i, int j) throws InterruptedException {
-        if (labyrinth[i][j] == 1 && labyrinth[i - 1][j] != 3) {
-            if (checkValidMove(i - 1, j) == 2) {
-                //(labyrinth[i - 1][j] == 2)
+    void movePlayer(int i, int j, int row, int column) throws InterruptedException {
+        if (labyrinth[i][j] == 1 && labyrinth[i + row][j + column] != 3) {
+            if (checkValidMove(i + row, j + column) == 2) {
                 if (Combat.fight() > 0) {
-                    labyrinth[i][j] = 0;
-                    labyrinth[i - 1][j] = 1;
-                    playerPositionRow = i - 1;
-                    playerPositionCol = j;
+                    //labyrinth[i][j] = 0;
+                    labyrinth[i + row][j + column] = 1;
+                    playerPositionRow = i + row;
+                    playerPositionCol = j + column;
                 }
             } else {
-                labyrinth[i][j] = 0;
-                labyrinth[i - 1][j] = 1;
-                playerPositionRow = i - 1;
-                playerPositionCol = j;
+                //labyrinth[i][j] = 0;
+                labyrinth[i + row][j + column] = 1;
+                playerPositionRow = i + row;
+                playerPositionCol = j + column;
             }
+            labyrinth[i][j] = 0;
         }
     }
-
-    void moveWest(int i, int j) throws InterruptedException {
-        if (labyrinth[i][j] == 1 && labyrinth[i][j - 1] != 3) {
-            if (checkValidMove(i, j - 1) == 2) {
-                if (Combat.fight() > 0) {
-                    labyrinth[i][j] = 0;
-                    labyrinth[i][j - 1] = 1;
-                    playerPositionRow = i;
-                    playerPositionCol = j - 1;
-                    printGameBoard();
-                }
-            } else {
-                labyrinth[i][j] = 0;
-                labyrinth[i][j - 1] = 1;
-                playerPositionRow = i;
-                playerPositionCol = j - 1;
-            }
-        }
-    }
-
-    void moveEast(int i, int j) throws InterruptedException {
-        if (labyrinth[i][j] == 1 && labyrinth[i][j + 1] != 3) {
-            if (checkValidMove(i, j + 1) == 2) {
-                if (Combat.fight() > 0) {
-                    labyrinth[i][j] = 0;
-                    labyrinth[i][j + 1] = 1;
-                    playerPositionRow = i;
-                    playerPositionCol = j + 1;
-                    printGameBoard();
-                }
-            } else {
-                labyrinth[i][j] = 0;
-                labyrinth[i][j + 1] = 1;
-                playerPositionRow = i;
-                playerPositionCol = j + 1;
-            }
-        }
-    }
-
-    void moveSouth(int i, int j) throws InterruptedException {
-        if (labyrinth[i][j] == 1 && labyrinth[i + 1][j] != 3) {
-            if (checkValidMove(i+1, j) == 2) {
-                if (Combat.fight() > 0) {
-                    labyrinth[i][j] = 0;
-                    labyrinth[i + 1][j] = 1;
-                    playerPositionRow = i + 1;
-                    playerPositionCol = j;
-                    printGameBoard();
-                }
-            } else {
-                labyrinth[i][j] = 0;
-                labyrinth[i + 1][j] = 1;
-                playerPositionRow = i + 1;
-                playerPositionCol = j;
-            }
-        }
-    }
-
     void findPlayerPosition() {
 
         for (int i = 0; i < labyrinth.length; i++) {
