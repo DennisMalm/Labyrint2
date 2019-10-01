@@ -6,7 +6,6 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Combat {
 
 
-
     static int monsterLife = 100;
     static int playerLife = 100;
     static int swing;
@@ -14,8 +13,8 @@ public class Combat {
 
     public static int fight() throws InterruptedException {
 
-
-        System.out.println("Fight starts.");
+        System.out.println("Fight starts.\n" +
+                           "------------------------------------------------------------");
         // monsterLife = 100;
         // playerLife = 100;
         swing = 2;
@@ -23,23 +22,24 @@ public class Combat {
         boolean alive;
 
         do {
-
             if (swing % 2 == 0) {
                 monsterLife = monsterLife - damageDone(swing);
-                System.out.println("Monster life: " + monsterLife);
+                System.out.println("Monster life: " + monsterLife +
+                                "\n----------------------");
                 delay();
                 if (monsterLife <= 0) {
                     killCount++;
                     playerLife += 10;
                     monsterLife = 100;
-                    System.out.println("You have defeated the monster and heal yourself for 10 life.");
+                    System.out.println("You have defeated the monster and heal yourself for 10 life.\n" +
+                                       "------------------------------------------------------------");
                     fighting = false;
-
                 }
 
             } else if (swing % 2 == 1) {
                 playerLife = playerLife - damageDone(swing);
-                System.out.println("Your life total: " + playerLife);
+                System.out.println("Your life total: " + playerLife + "\n" +
+                                   "----------------------");
                 delay();
                 if (checkIfDead()) {
                     fighting = false;
@@ -65,7 +65,7 @@ public class Combat {
     }
 
     public static void delay() throws InterruptedException {
-        Thread.sleep(10);
+        Thread.sleep(500);
     }
 
     static void checkStatus() {
@@ -82,8 +82,6 @@ public class Combat {
         }
         return dead;
     }
-
-
 
     static void monsterEncounter() {
         System.out.println("\nYou encounter a monster!");

@@ -26,13 +26,13 @@ public class Main {
         System.out.println(
                 "                                       \n" +
                         "Get through the labyrinth!     \n" +
-                        " ----------------------------  \n" +
+                        "--------------------------     \n" +
                         "1. Go North.                   \n" +
                         "2. Go West.                    \n" +
                         "3. Go East.                    \n" +
-                        "4. Go South.          \n" +
+                        "4. Go South.                   \n" +
                         "5. Check your status.          \n" +
-                        "5. Quit.                         "
+                        "6. Quit.                         "
         );
         int fem = -5;
         int tio = 10;
@@ -51,7 +51,7 @@ public class Main {
                 Combat.checkStatus();
                 return false;
             case 6:
-                System.out.println("Spelet avslutas.");
+                System.out.println("Exiting game.");
                 return true;
         }
         return false;
@@ -62,7 +62,7 @@ public class Main {
         while (true) {
             try {
                 input = (read.nextInt());
-                if (input > 0 && input <= 5) {
+                if (input > 0 && input <= 6) {
                     break;
                 }
             } catch (InputMismatchException ime) {

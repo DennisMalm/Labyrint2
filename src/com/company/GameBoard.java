@@ -16,17 +16,13 @@ public class GameBoard {
             {3, 3, 3, 3, 3, 3, 3}
     };
 
-
     int corridor = 0;
     static int playerPositionRow;
     static int playerPositionCol;
     int monster = 2;
     int obstacle = 3;
-    int finish = 4;
-
 
     void playerMove(int menuInput) throws InterruptedException {
-
 
         findPlayerPosition();
         printGameBoard();
@@ -34,7 +30,6 @@ public class GameBoard {
         int j = playerPositionRow;
         int row = 0;
         int column = 0;
-
 
         if (menuInput == 1) {
             row--;
@@ -47,24 +42,21 @@ public class GameBoard {
         }
         movePlayer(i, j, row, column);
         checkFinishTile();
-        //printGameBoard();
+        printGameBoard();
     }
 
     int checkValidMove(int i, int j) {
-
         int path = 1;
-        if (labyrinth[i][j] == 0) {
+        if (labyrinth[i][j] == corridor) {
             System.out.println("You delve deeper into the labyrinth.");
             path = 1;
-        } else if (labyrinth[i][j] == 2) {
+        } else if (labyrinth[i][j] == monster) {
             Combat.monsterEncounter();
             path = 2;
-        } else if (labyrinth[i][j] == 3) {
+        } else if (labyrinth[i][j] == obstacle) {
             System.out.println("An obstacle blocks the passage.");
             path = 3;
         }
-
-
         return path;
     }
 
@@ -72,13 +64,11 @@ public class GameBoard {
         if (labyrinth[i][j] == 1 && labyrinth[i + row][j + column] != 3) {
             if (checkValidMove(i + row, j + column) == 2) {
                 if (Combat.fight() > 0) {
-                    //labyrinth[i][j] = 0;
                     labyrinth[i + row][j + column] = 1;
                     playerPositionRow = i + row;
                     playerPositionCol = j + column;
                 }
             } else {
-                //labyrinth[i][j] = 0;
                 labyrinth[i + row][j + column] = 1;
                 playerPositionRow = i + row;
                 playerPositionCol = j + column;
@@ -86,8 +76,8 @@ public class GameBoard {
             labyrinth[i][j] = 0;
         }
     }
-    void findPlayerPosition() {
 
+    void findPlayerPosition() {
         for (int i = 0; i < labyrinth.length; i++) {
             for (int j = 0; j < labyrinth.length; j++) {
                 if (labyrinth[i][j] == 1) {
@@ -101,7 +91,7 @@ public class GameBoard {
     static boolean checkFinishTile() {
         boolean win = false;
         if (playerPositionRow == 0 && playerPositionCol == 3) {
-            System.out.println("You've completed the labyrinth!");
+            System.out.println("\nYou've completed the labyrinth!");
             win = true;
         }
         return win;
@@ -111,7 +101,6 @@ public class GameBoard {
         System.out.println();
         for (int i = 0; i < labyrinth.length; i++) {
             for (int j = 0; j < labyrinth.length; j++) {
-
                 System.out.print(labyrinth[i][j] + " ");
             }
             System.out.println();
