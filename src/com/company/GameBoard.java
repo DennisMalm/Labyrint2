@@ -9,10 +9,10 @@ public class GameBoard {
     private int[][] labyrinth = new int[][]{
             {3, 3, 3, 4, 3, 3, 3},
             {3, 3, 0, 2, 0, 0, 3},    // 0 == tom plats.
-            {3, 0, 2, 2, 3, 2, 3},    // 1 == Spelarens position.
+            {3, 1, 2, 2, 3, 2, 3},    // 1 == Spelarens position.
             {3, 2, 3, 3, 0, 0, 3},    // 2 == Monster position.
             {3, 0, 0, 3, 0, 3, 3},    // 3 == Hinder eller väggar.
-            {3, 3, 0, 1, 0, 3, 3},    // 4 == Mål / slutet av labyrinten.
+            {3, 3, 0, 0, 0, 3, 3},    // 4 == Mål / slutet av labyrinten.
             {3, 3, 3, 3, 3, 3, 3}
     };
 
@@ -57,20 +57,20 @@ public class GameBoard {
         return path;
     }
 
-    private void movePlayer(int i, int j, int row, int column) throws InterruptedException {
-        if (labyrinth[i][j] == 1 && labyrinth[i + row][j + column] != 3) {
-            if (checkValidMove(i + row, j + column) == 2) {
+    private void movePlayer(int playerPosX, int playerPosY, int row, int column) throws InterruptedException {
+        if (labyrinth[playerPosX][playerPosY] == 1 && labyrinth[playerPosX + row][playerPosY + column] != 3) {
+            if (checkValidMove(playerPosX + row, playerPosY + column) == 2) {
                 if (Combat.fight() > 0) {
-                    labyrinth[i + row][j + column] = 1;
-                    playerPositionRow = i + row;
-                    playerPositionCol = j + column;
+                    labyrinth[playerPosX + row][playerPosY + column] = 1;
+                    playerPositionRow = playerPosX + row;
+                    playerPositionCol = playerPosY + column;
                 }
             } else {
-                labyrinth[i + row][j + column] = 1;
-                playerPositionRow = i + row;
-                playerPositionCol = j + column;
+                labyrinth[playerPosX + row][playerPosY + column] = 1;
+                playerPositionRow = playerPosX + row;
+                playerPositionCol = playerPosY + column;
             }
-            labyrinth[i][j] = 0;
+            labyrinth[playerPosX][playerPosY] = 0;
         }
     }
 
