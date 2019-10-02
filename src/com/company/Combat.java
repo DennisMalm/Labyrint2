@@ -6,16 +6,15 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Combat {
 
 
-    static int monsterLife = 100;
-    static int playerLife = 100;
-    static int swing;
-    static int killCount;
+    private static int monsterLife = 100;
+    private static int playerLife = 100;
+    private static int killCount;
 
-    public static int fight() throws InterruptedException {
+    static int fight() throws InterruptedException {
 
         System.out.println("Fight starts.\n" +
-                "------------------------------------------------------------");
-        swing = 2;
+                "------------------------------------------");
+        int swing = 2;
         boolean fighting = true;
         boolean alive;
 
@@ -34,8 +33,8 @@ public class Combat {
                         playerLife += 10;
                     }
                     monsterLife = 100;
-                    System.out.println("You have defeated the monster." + healthBack + "\n " +
-                            "------------------------------------------------------------");
+                    System.out.println("You have defeated the monster. " + healthBack + "\n" +
+                            "----------------------");
                     fighting = false;
                 }
 
@@ -54,7 +53,7 @@ public class Combat {
         return playerLife;
     }
 
-    private static int damageDone(int swing) {
+     private static int damageDone(int swing) {
         if (swing % 2 == 1) {
             int damage = ThreadLocalRandom.current().nextInt(1, 10);
             System.out.println("The monster hit for " + damage);
@@ -66,8 +65,8 @@ public class Combat {
         }
     }
 
-    public static void delay() throws InterruptedException {
-        Thread.sleep(500);
+    private static void delay() throws InterruptedException {
+        Thread.sleep(100);
     }
 
     static void checkStatus() {
@@ -75,7 +74,7 @@ public class Combat {
     }
 
     static boolean checkIfDead() {
-        boolean dead = false;
+        boolean dead;
         if (playerLife <= 0) {
             System.out.println("You have been slain...");
             dead = true;

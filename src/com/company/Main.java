@@ -12,8 +12,8 @@ public class Main {
             stop = Menu.menu();
             if (Combat.checkIfDead()) {
                 stop = true;
-            } else {
-                GameBoard.checkFinishTile();
+            } else if(GameBoard.checkFinishTile()) {
+                stop = true;
             }
         } while (!stop);
     }

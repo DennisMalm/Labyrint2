@@ -5,20 +5,20 @@ import java.util.Scanner;
 
 public class Menu {
 
-    static GameBoard currentGame = new GameBoard();
-    static Scanner read = new Scanner(System.in);
-
+    private static GameBoard currentGame = new GameBoard();
+    private static Scanner read = new Scanner(System.in);
     static boolean menu() throws InterruptedException {
+        currentGame.printGameBoard();
         System.out.println(
-                "                                       \n" +
-                        "Get through the labyrinth!     \n" +
-                        "--------------------------     \n" +
-                        "1. Go North.                   \n" +
-                        "2. Go West.                    \n" +
-                        "3. Go East.                    \n" +
-                        "4. Go South.                   \n" +
-                        "5. Check your status.          \n" +
-                        "6. Quit.                         "
+                        "                           \n" +
+                        "Get through the labyrinth! \n" +
+                        "-------------------------- \n" +
+                        "1. Go North. "                 +
+                        "2. Go West.                \n" +
+                        "3. Go East.  "                 +
+                        "4. Go South.               \n" +
+                        "5. Check your status.      \n" +
+                        "6. Quit.                     "
         );
         int input = menuInput();
         switch (input) {
@@ -47,9 +47,9 @@ public class Menu {
                     break;
                 }
             } catch (InputMismatchException ime) {
-                System.out.println("Please enter correct instructions.");
                 read.nextLine();
             }
+            System.out.println("Please enter correct instructions.");
         }
         return input;
     }
