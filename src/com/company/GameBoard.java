@@ -12,7 +12,7 @@ public class GameBoard {
             {3, 0, 2, 2, 3, 2, 3},    // 1 == Spelarens position.
             {3, 2, 3, 0, 0, 0, 3},    // 2 == Monster position.
             {3, 0, 0, 0, 3, 3, 3},    // 3 == Hinder eller väggar.
-            {3, 3, 3, 1, 3, 3, 3},     // 4 == Mål / slutet av labyrinten.
+            {3, 3, 3, 1, 3, 3, 3},    // 4 == Mål / slutet av labyrinten.
             {3, 3, 3, 3, 3, 3, 3}
     };
 
@@ -22,7 +22,7 @@ public class GameBoard {
     int monster = 2;
     int obstacle = 3;
 
-    void playerMove(int menuInput) throws InterruptedException {
+    void move(int menuInput) throws InterruptedException {
 
         findPlayerPosition();
         printGameBoard();

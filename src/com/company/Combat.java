@@ -14,9 +14,7 @@ public class Combat {
     public static int fight() throws InterruptedException {
 
         System.out.println("Fight starts.\n" +
-                           "------------------------------------------------------------");
-        // monsterLife = 100;
-        // playerLife = 100;
+                "------------------------------------------------------------");
         swing = 2;
         boolean fighting = true;
         boolean alive;
@@ -25,21 +23,26 @@ public class Combat {
             if (swing % 2 == 0) {
                 monsterLife = monsterLife - damageDone(swing);
                 System.out.println("Monster life: " + monsterLife +
-                                "\n----------------------");
+                        "\n----------------------");
                 delay();
                 if (monsterLife <= 0) {
                     killCount++;
-                    playerLife += 10;
+                    String healthBack = "";
+                    int regen = ThreadLocalRandom.current().nextInt(1, 100);
+                    if (regen > 50) {
+                        healthBack = "And you regain 10 life.";
+                        playerLife += 10;
+                    }
                     monsterLife = 100;
-                    System.out.println("You have defeated the monster and heal yourself for 10 life.\n" +
-                                       "------------------------------------------------------------");
+                    System.out.println("You have defeated the monster." + healthBack + "\n " +
+                            "------------------------------------------------------------");
                     fighting = false;
                 }
 
             } else if (swing % 2 == 1) {
                 playerLife = playerLife - damageDone(swing);
                 System.out.println("Your life total: " + playerLife + "\n" +
-                                   "----------------------");
+                        "----------------------");
                 delay();
                 if (checkIfDead()) {
                     fighting = false;
@@ -52,7 +55,6 @@ public class Combat {
     }
 
     private static int damageDone(int swing) {
-        Random randomNumber = new Random();
         if (swing % 2 == 1) {
             int damage = ThreadLocalRandom.current().nextInt(1, 10);
             System.out.println("The monster hit for " + damage);
