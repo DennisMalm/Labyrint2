@@ -1,87 +1,57 @@
 package com.dennismalm;
 
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class Combat {
+    private static Random rand = new Random();
 
-
-    private static int monsterLife = 100;
-    private static int playerLife = 100;
-    private static int killCount;
-
-    static int fight() throws InterruptedException {
-
-        System.out.println("Fight starts.\n" +
-                "------------------------------------------");
+    /*
+     * Returns true if player beats monster.
+     */
+    static boolean fight(Player player, Monster monster) {
+        monsterEncounter();
         int swing = 2;
-        boolean fighting = true;
-        boolean alive;
 
         do {
             if (swing % 2 == 0) {
-                monsterLife = monsterLife - damageDone(swing);
-                System.out.println("Monster life: " + monsterLife +
+                monster.damage(player.damageDone(rand));
+                System.out.println("Monster life: " + monster.getLife() +
                         "\n----------------------");
                 delay();
-                if (monsterLife <= 0) {
-                    killCount++;
+                if (monster.isDead()) {
+                    player.addKill();;
                     String healthBack = "";
-                    int regen = ThreadLocalRandom.current().nextInt(1, 100);
+                    int regen = rand.nextInt(100) + 1;
                     if (regen > 50) {
-                        healthBack = "And you regain 10 life.";
-                        playerLife += 10;
+                        System.out.println("And you regain 10 life.");
+                        player.heal(10);
                     }
-                    monsterLife = 100;
-                    System.out.println("You have defeated the monster. " + healthBack + "\n" +
-                            "----------------------");
-                    fighting = false;
+                    return true;
                 }
 
             } else if (swing % 2 == 1) {
-                playerLife = playerLife - damageDone(swing);
-                System.out.println("Your life total: " + playerLife + "\n" +
+                player.damage(monster.damageDone(rand));
+                System.out.println("Your life total: " + player.getLife() + "\n" +
                         "----------------------");
                 delay();
-                if (checkIfDead()) {
-                    fighting = false;
+                if (player.isDead()) {
+                    System.out.println("You have been slain...");
+                    return false;
                 }
             }
 
             swing++;
-        } while (fighting);
-        return playerLife;
+        } while (true);
     }
 
-     private static int damageDone(int swing) {
-        if (swing % 2 == 1) {
-            int damage = ThreadLocalRandom.current().nextInt(1, 10);
-            System.out.println("The monster hit for " + damage);
-            return damage;
-        } else {
-            int damage = ThreadLocalRandom.current().nextInt(5, 25);
-            System.out.println("You hit the monster for " + damage);
-            return damage;
+    private static void delay() {
+        // https://stackoverflow.com/questions/24104313/how-do-i-make-a-delay-in-java
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            Thread.currentThread().interrupt();
         }
-    }
-
-    private static void delay() throws InterruptedException {
-        Thread.sleep(1000);
-    }
-
-    static void checkStatus() {
-        System.out.println("Your life total is: " + playerLife + " and you've killed " + killCount + " monsters.");
-    }
-
-    static boolean checkIfDead() {
-        boolean dead;
-        if (playerLife <= 0) {
-            System.out.println("You have been slain...");
-            dead = true;
-        } else {
-            dead = false;
-        }
-        return dead;
     }
 
     static void monsterEncounter() {
@@ -100,5 +70,8 @@ public class Combat {
                 "            \".\n" +
                 "           \\                       \n" +
                 "------------------------------------------------\n");
+        System.out.println("Fight starts.\n" +
+                "------------------------------------------");
+
     }
 }
