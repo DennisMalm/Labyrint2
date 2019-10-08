@@ -8,7 +8,7 @@ public class Menu {
     private static GameBoard currentGame = new GameBoard();
     private static Scanner read = new Scanner(System.in);
     static boolean menu() throws InterruptedException {
-        currentGame.printGameBoard();
+        currentGame.printGameBoardTrue();
         System.out.println(
                         "                           \n" +
                         "Get through the labyrinth! \n" +

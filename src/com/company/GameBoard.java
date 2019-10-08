@@ -15,6 +15,8 @@ public class GameBoard {
             {3, 3, 0, 0, 0, 3, 3},    // 4 == Mål / slutet av labyrinten.
             {3, 3, 3, 3, 3, 3, 3}
     };
+    private int[][] shownLabyrinth = labyrinth;
+
 
     private static int playerPositionRow;
     private static int playerPositionCol;
@@ -94,11 +96,14 @@ public class GameBoard {
         return win;
     }
 
-    void printGameBoard() {
+    void printGameBoardTrue() {
         System.out.println("-------------");
 
         for (int[] ints : labyrinth) {
             for (int j = 0; j < labyrinth.length; j++) {
+                if (ints[j] == 2 || ints[j] == 4)
+                    System.out.print("0" + " ");
+                else
                 System.out.print(ints[j] + " ");
             }
             System.out.println(" ");
